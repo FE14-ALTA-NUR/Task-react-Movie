@@ -12,7 +12,7 @@ class MovieList extends React.Component {
     ];
 
     return (
-      <div>
+      <div className='m-10 flex flex-column flex-wrap'>
         {movies.map((movie) => (
           <MovieItem key={movie.id} movie={movie} />
         ))}
