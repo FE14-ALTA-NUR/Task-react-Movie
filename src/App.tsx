@@ -1,11 +1,14 @@
 import React from 'react';
 import MovieList from './components/MovieList';
+import Header from './components/Header';
+// import MovieDetail from './components/DetailMovie';
 
 class App extends React.Component {
   render() {
     return (
       <div className="p-4">
-        <h1 className="text-3xl font-bold mb-4">Now Playing Movies</h1>
+        <Header/>
+        {/* <MovieDetail/> */}
         <MovieList />
       </div>
     );
