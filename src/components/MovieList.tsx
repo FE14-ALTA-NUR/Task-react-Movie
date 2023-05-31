@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
 
 import Card from './Card';
+// import Layout from './Layout';
+
 interface Movie {
   id: number;
   title: string;
@@ -11,46 +13,35 @@ interface Movie {
   poster_path: string | null;
 }
 
-interface MovieListState {
-  movies: Movie[];
-}
+const MovieList = () => {
+  const [movies, setMovies] = useState<Movie[]>([]);
 
-class MovieList extends React.Component<{}, MovieListState> {
-  state: MovieListState = {
-    movies: [],
-  };
+  useEffect(() => {
+    fetchNowPlayingMovies();
+  }, []);
 
-  componentDidMount() {
-    this.fetchNowPlayingMovies();
-  }
-
-  fetchNowPlayingMovies = () => {
+  const fetchNowPlayingMovies = () => {
     const API_KEY = 'a37dc4ea97f3cd0d8bad3a9b9022cf56';
     const url = `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}`;
 
     axios
       .get(url)
       .then((response: AxiosResponse) => {
-        this.setState({ movies: response.data.results });
+        setMovies(response.data.results);
       })
       .catch((error) => {
         console.error('Error fetching now playing movies:', error);
       });
   };
 
-  render() {
-    const { movies } = this.state;
-
-    return (
-      <div className="grid grid-cols-3 gap-4">
-
-        {movies.map((movie) => (
-          <Card key={movie.id} movie={movie} />
-          
-        ))}
-      </div>
-    );
-  }
-}
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 w-screen p-5">
+    {movies.map((movie) => (
+      <Card key={movie.id} movie={movie} />
+    ))}
+  </div>
+  
+  );
+};
 
 export default MovieList;
