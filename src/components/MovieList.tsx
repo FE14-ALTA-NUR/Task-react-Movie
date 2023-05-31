@@ -1,24 +1,47 @@
-import React from 'react';
-import MovieItem from './MovieItem';
+import React, { useEffect, useState } from 'react';
+import axios, { AxiosResponse } from 'axios';
 
-class MovieList extends React.Component {
-  render() {
-    // Sample movie data
-    const movies = [
-      { id: 1, title: 'ini adalah contoh judul film paling laris', rating: 7.5, img: 'https://cdn1-production-images-kly.akamaized.net/1uaACs5LpFTiCgDRScrNcBPmvLk=/375x500/smart/filters:quality(75):strip_icc():format(jpeg)/kly-media-production/medias/4403395/original/057153600_1682043901-MV5BNzZmOTU1ZTEtYzVhNi00NzQxLWI5ZjAtNWNhNjEwY2E3YmZjXkEyXkFqcGdeQXVyODk4OTc3MTY_._V1_FMjpg_UX1000_.jpg' },
-      { id: 2, title: 'ini adalah contoh judul film paling laris', rating: 7.5, img: 'https://cdn1-production-images-kly.akamaized.net/1uaACs5LpFTiCgDRScrNcBPmvLk=/375x500/smart/filters:quality(75):strip_icc():format(jpeg)/kly-media-production/medias/4403395/original/057153600_1682043901-MV5BNzZmOTU1ZTEtYzVhNi00NzQxLWI5ZjAtNWNhNjEwY2E3YmZjXkEyXkFqcGdeQXVyODk4OTc3MTY_._V1_FMjpg_UX1000_.jpg' },
-      { id: 3, title: 'ini adalah contoh judul film paling laris', rating: 7.5, img: 'https://cdn1-production-images-kly.akamaized.net/1uaACs5LpFTiCgDRScrNcBPmvLk=/375x500/smart/filters:quality(75):strip_icc():format(jpeg)/kly-media-production/medias/4403395/original/057153600_1682043901-MV5BNzZmOTU1ZTEtYzVhNi00NzQxLWI5ZjAtNWNhNjEwY2E3YmZjXkEyXkFqcGdeQXVyODk4OTc3MTY_._V1_FMjpg_UX1000_.jpg' },
-     
-    ];
+import Card from './Card';
+// import Layout from './Layout';
 
-    return (
-      <div className='m-10 flex flex-column flex-wrap'>
-        {movies.map((movie) => (
-          <MovieItem key={movie.id} movie={movie} />
-        ))}
-      </div>
-    );
-  }
+interface Movie {
+  id: number;
+  title: string;
+  vote_average: number;
+  release_date: string;
+  overview: string;
+  poster_path: string | null;
 }
+
+const MovieList = () => {
+  const [movies, setMovies] = useState<Movie[]>([]);
+
+  useEffect(() => {
+    fetchNowPlayingMovies();
+  }, []);
+
+  const fetchNowPlayingMovies = () => {
+    const API_KEY = 'a37dc4ea97f3cd0d8bad3a9b9022cf56';
+    const url = `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}`;
+
+    axios
+      .get(url)
+      .then((response: AxiosResponse) => {
+        setMovies(response.data.results);
+      })
+      .catch((error) => {
+        console.error('Error fetching now playing movies:', error);
+      });
+  };
+
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 w-screen p-5">
+    {movies.map((movie) => (
+      <Card key={movie.id} movie={movie} />
+    ))}
+  </div>
+  
+  );
+};
 
 export default MovieList;

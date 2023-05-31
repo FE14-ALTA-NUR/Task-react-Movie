@@ -1,15 +1,26 @@
 import React from 'react';
-import MovieList from './components/MovieList';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from './pages/Home';
+import MovieDetail from './pages/DetailMovie';
+import { useSelector } from "react-redux";
+import {ThemeState} from "../src/redux/Themes";
+import Favorit from './pages/Favorit';
 
-class App extends React.Component {
-  render() {
-    return (
-      <div className="p-4">
-        <h1 className="text-3xl font-bold mb-4">Now Playing Movies</h1>
-        <MovieList />
-      </div>
-    );
-  }
+const App = () => {
+  const thema = useSelector(
+    (state: { thema: ThemeState }) => state.thema
+  );
+  return (
+    <div data-theme={thema?.thema}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/detail" element={<MovieDetail />} />
+          <Route path="/favorit" element={<Favorit />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
+  );
 }
 
 export default App;
