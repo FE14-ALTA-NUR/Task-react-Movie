@@ -1,21 +1,15 @@
-import React, { useState } from "react";
-import { ThemeState, themes } from "../redux/Themes";
+import React, {  } from "react";
+import { themes } from "../redux/Themes";
 import { useDispatch } from "react-redux";
 
 const Header = () => {
 
   const dispatch = useDispatch();
-
-  const [thema, setThema] = useState<string>("");
-
   const handleThemaChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedThema = e.target.value;
-    setThema(selectedThema);
-    console.log(thema)
-    dispatch(themes( thema ));
+    dispatch(themes(selectedThema))
 
   };
-
 
   return (
     <div className="navbar bg-base-100 shadow-xl sticky top-0 z-40">
@@ -25,7 +19,7 @@ const Header = () => {
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
           </label>
           <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-            <li><a>Acount</a></li>
+            <li><a>Home</a></li>
             <li><a>Favorit</a></li>
           </ul>
         </div>
@@ -33,7 +27,8 @@ const Header = () => {
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
-          <li><a>Acount</a></li>
+          <li>
+            <a>Home</a></li>
           <li><a>Favorit</a></li>
 
         </ul>
@@ -41,7 +36,7 @@ const Header = () => {
       <div className="navbar-end">
         <div className="form-control">
           <div className="input-group">
-            <select className="select select-bordered" onChange={handleThemaChange}>
+            <select className="select select-bordered w-full max-w-xs" onChange={handleThemaChange}>
               <option disabled selected>Pick Thema</option>
               <option value="dark">Dark</option>
               <option value="light">Light</option>
@@ -49,9 +44,8 @@ const Header = () => {
               <option value="pastel">Pastel</option>
               <option value="garden">Garden</option>
               <option value="luxury">Luxury</option>
-
             </select>
-            {/* <button className="btn" onClick={() => handleThemeApply()}>Go</button> */}
+            
           </div>
         </div>
       </div>

@@ -5,7 +5,7 @@ export interface ThemeState {
 }
 
 const initialState: ThemeState = {
-  thema: "pastel",
+  thema: "light",
 };
 
 export const themaSlice = createSlice({
@@ -13,7 +13,7 @@ export const themaSlice = createSlice({
   initialState,
   reducers: {
     
-    themes(state, action: PayloadAction<ThemeState>) {
+    themes(state, action: PayloadAction<string>) {
       state.thema = action.payload;
     },
     
