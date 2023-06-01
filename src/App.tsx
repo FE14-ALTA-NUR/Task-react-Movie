@@ -1,10 +1,11 @@
-import React from 'react';
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from './pages/Home';
 import MovieDetail from './pages/DetailMovie';
+import Favorit from './pages/Favorit';
 import { useSelector } from "react-redux";
 import {ThemeState} from "../src/redux/Themes";
-import Favorit from './pages/Favorit';
+
 
 const App = () => {
   const thema = useSelector(
@@ -15,8 +16,8 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/detail" element={<MovieDetail />} />
-          <Route path="/favorit" element={<Favorit />} />
+          <Route path="/detail" element={<MovieDetail/>} />
+          <Route path="/Favorit" element={<Favorit />} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -14,7 +14,7 @@ interface Movie {
 }
 
 interface MovieDetailProps {
-  movieId: number;
+  movieId?: number;
 }
 
 const MovieDetail: React.FC<MovieDetailProps> = ({ movieId }) => {

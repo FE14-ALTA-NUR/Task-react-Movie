@@ -1,31 +1,30 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export interface Item {
-  id: number;
+export interface favItem {
+  favId: number;
   
 }
 
 export interface FavState {
-  items: Item[];
+  favItems: favItem[];
 }
 
 const initialState: FavState = {
-  items: [],
+  favItems: [],
 };
 
 export const favSlice = createSlice({
   name: "favorit",
   initialState,
   reducers: {
-    addFavorit(state, action: PayloadAction<Item>) {
-      state.items.push(action.payload);
+    addFavorit(state, action: PayloadAction<favItem>) {
+      state.favItems.push(action.payload);
     },
     remove(state, action: PayloadAction<number>) {
-      state.items = state.items.filter((item) => {
-        item.id !== action.payload;
-      });
+      state.favItems = state.favItems.filter((item) => item.favId !== action.payload);
     },
   },
 });
+
 
 export const { addFavorit, remove } = favSlice.actions;
